@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import Select
 import time
 
 
+
 try:
     browser = webdriver.Chrome()
     browser.get("https://suninjuly.github.io/selects1.html")
