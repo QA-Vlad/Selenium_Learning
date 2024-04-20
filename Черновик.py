@@ -1,20 +1,28 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium import webdriver
+import os
+import re
 
-browser = webdriver.Chrome()
+# Указываем директорию, в которой находятся файлы
+directory = r"C:\Users\compm\PycharmProjects\Selenium_2-0"
 
-browser.get("http://suninjuly.github.io/wait2.html")
+# Регулярное выражение для поиска файлов по заданному формату
+pattern = r"Глава (\d+\.\d+) Урок (\d+)"
 
-# говорим Selenium проверять в течение 5 секунд, пока кнопка не станет кликабельной
-button = WebDriverWait(browser, 5).until(
-        EC.element_to_be_clickable((By.ID, "verify"))
-    )
-button.click()
-WebDriverWait(browser, 5).until_not(
-        EC.element_to_be_clickable((By.ID, "verify"))
-    )
-message = browser.find_element(By.ID, "verify_message")
+for filename in os.listdir(directory):
+    # Проверяем, что это файл с расширением .py
+    if filename.endswith(".py"):
+        # Применяем регулярное выражение для извлечения номеров главы и урока
+        match = re.match(pattern, filename.replace(".py", ""))
+        if match:
+            chapter_number = match.group(1).replace(".", "-")
+            lesson_number = match.group(2)
 
-assert "successful" in message.text
+            # Формируем новое имя файла по заданному формату
+            new_filename = f"test_Chapter_{chapter_number}_Lesson_{lesson_number}.py"
+
+            # Получаем полный путь к файлу
+            old_path = os.path.join(directory, filename)
+            new_path = os.path.join(directory, new_filename)
+
+            # Переименовываем файл
+            os.rename(old_path, new_path)
+            print(f"Renamed {filename} to {new_filename}")
