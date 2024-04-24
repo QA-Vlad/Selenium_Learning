@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+import pytest
 
 
 link = "https://www.demo.guru99.com/V4/index.php"

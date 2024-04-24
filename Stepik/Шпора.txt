@@ -55,3 +55,5 @@ element = driver.find_element(By.CSS_SELECTOR, "h1 + p")
 Метод получения относительного пути к файлу из директории со скриптом:
 current_dir = os.path.abspath(os.path.dirname(__file__))    # получаем путь к директории текущего исполняемого файла
 file_path = os.path.join(current_dir, 'file.txt')           # добавляем к этому пути имя файла
+
+pytest test_name.py -v --tb=line  # Запуск pytest с нормальным выводом
